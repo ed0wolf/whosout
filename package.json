@@ -1,0 +1,13 @@
+{
+  "name": "whosout",
+  "version": "0.0.1",
+  "description": "whos out?",
+  "author": "ed0wolf",
+  "dependencies": {
+    "express": "*"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-mocha": "^1.1.0"
+  }
+}
