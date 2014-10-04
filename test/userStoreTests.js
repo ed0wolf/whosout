@@ -4,6 +4,7 @@ var UserStore = require('../src/userStore');
 describe('UserStore', function() {
 	describe('when constructing a new user store', function() {
 		var userStore;
+		var userkey;
 		beforeEach(function() {
 			userStore = new UserStore();
 		});
@@ -12,31 +13,49 @@ describe('UserStore', function() {
 			assert.equal(Object.keys(userStore.users).length, 0);
 		});
 
-		describe('when adding a new ', function() {
+		describe('when adding a new user', function() {
 			var user = {username: 'bruce1234'};
-			var username = 'some-username';
-			var resultvalue;
 			beforeEach(function() {
-				resultValue = userStore.add(username, user);
+				userkey = userStore.add(user);
 			});
 			
-			it('should return true' ,function() {
-				assert.equal(resultValue, true)
+			it('should not return null' ,function() {
+				assert.notEqual(userkey, null);
 			});
 
 			it('should have added the user', function(){
-				assert.equal(userStore.users[username], user);
+				assert.equal(userStore.users[userkey], user);
+			});
+		});
+
+		describe('when adding the same user who already exists', function() {
+			var user = {username: 'teddy'};
+			var firstUserkey, secondUserkey;
+			beforeEach(function() {
+				firstUserkey = userStore.add(user);
+				secondUserkey = userStore.add(user);
+			});
+
+			it('should return two different userkeys', function(){
+				assert.notEqual(firstUserkey, secondUserkey);
+			});
+
+			it('should contain the user at the second user key', function(){
+				assert.equal(userStore.get(secondUserkey), user);
+			});
+
+			it('should contain the user at the original user key', function(){
+				assert.equal(userStore.get(firstUserkey), user);
 			});
 		});
 
 		describe('when calling add without key', function() {
-			var isAdded;
 			beforeEach(function() {
-				isAdded = userStore.add(null, null);
+				userkey = userStore.add(null);
 			});
 
 			it('should return false', function(){
-				assert.equal(isAdded, false);
+				assert.equal(userkey, null);
 			});
 
 			it('should not have added anything', function() {
@@ -48,7 +67,7 @@ describe('UserStore', function() {
 			var result;
 		 	describe('which does not exist', function(){
 				beforeEach(function(){
-					result = userStore.get('some-username');
+					result = userStore.get('some-userkey');
 				});
 
 				it('should have returned null', function(){
@@ -57,11 +76,9 @@ describe('UserStore', function() {
 			});
 
 			describe('which does exist', function(){
-				var username = 'some-username';
-				var user = {user: 'details'};
+				var user = {username: 'wallace'};
 				beforeEach(function(){
-					userStore.add(username, user);
-					result = userStore.get(username);
+					result = userStore.get(userStore.add(user));
 				});
 
 				it('should return the user', function() {
