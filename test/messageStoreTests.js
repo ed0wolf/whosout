@@ -14,14 +14,17 @@ describe('MessageStore', function(){
 
 	describe('when adding new message', function() {
 		var message = { from: 'yoda', to: 'sith' };
+		var addedIndex;
 		beforeEach(function() {
 			messageStore = new MessageStore();
-			messageStore.add(message);
+			addedIndex = messageStore.add(message);
 		});
-
 		it('should have saved the message', function(){
 			assert.equal(messageStore.messages.length, 1);
-			assert.equal(messageStore.messages[0], message);
+		});
+
+		it('should have returned the index of the message', function(){
+			assert.equal(messageStore.messages[addedIndex], message);
 		});
 
 		describe('then getting the messages from a user', function(){

@@ -4,10 +4,10 @@ var Message = require('../../src/models/message');
 describe('Message', function(){
 	describe('when creating', function(){
 		var message;
-		describe('without parameters', function(){
+		describe('with only  2 parameters', function(){
 			it('should throw an error', function(){
 				assert.throws(function(){
-					var m = new Message();
+					var m = new Message('', '');
 				}, /requires parameters/);
 			});
 		});

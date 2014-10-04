@@ -3,7 +3,7 @@ function MessageStore() {
 }
 
 MessageStore.prototype.add = function(message) {
-	this.messages.push(message);
+	return this.messages.push(message) - 1;
 };
 
 MessageStore.prototype.fromUser = function(from) {
