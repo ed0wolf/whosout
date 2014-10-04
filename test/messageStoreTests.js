@@ -43,5 +43,23 @@ describe('MessageStore', function(){
 				assert.equal(returnedMessages[0], message);
 			});
 		});
+
+		describe('then getting the messages to a user', function() {
+			var username = 'yoda';
+			var returnedMessages;
+			beforeEach(function(){
+				messageStore.add({to: username});
+				messageStore.add({to: username});
+				messageStore.add({to: 'not'+username});
+				returnedMessages = messageStore.toUser(username);
+			});
+
+			it('should only return the messages to the correct user', function(){
+				assert.equal(returnedMessages.length, 2);
+				returnedMessages.forEach(function(message){
+					assert.equal(message.to, username);
+				});
+			});
+		});
 	});
 });
