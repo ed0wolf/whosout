@@ -1,5 +1,6 @@
 var assert = require('assert');
-var MessageStore = require('../src/messageStore');
+var MessageStore = require('../src/messageStore'),
+    Message = require('../src/models/message');
 
 describe('MessageStore', function(){
 	var messageStore;
@@ -13,8 +14,10 @@ describe('MessageStore', function(){
 	});
 
 	describe('when adding new message', function() {
-		var message = { from: 'yoda', to: 'sith' };
+		var username = 'yoda';
+		var message = { from: username, to: 'sith' };
 		var addedIndex;
+		var returnedMessages;
 		beforeEach(function() {
 			messageStore = new MessageStore();
 			addedIndex = messageStore.add(message);
@@ -28,25 +31,36 @@ describe('MessageStore', function(){
 		});
 
 		describe('then getting the messages from a user', function(){
-			var returnedMessages;
-			beforeEach(function() {
-				messageStore.add({from: 'not-yoda'});
-				returnedMessages = messageStore.fromUser(message.from);
+			describe('who has no messages', function(){
+				beforeEach(function(){
+					returnedMessages = messageStore.fromUser('non-existant-user');
+				});
+
+				it('should return an empty array', function(){
+					assert.equal(Array.isArray(returnedMessages), true);
+					assert.equal(returnedMessages.length, 0);
+				});
 			});
 
-			it('should returned an array', function(){
-				assert.equal(Array.isArray(returnedMessages), true);
-			});
+			describe('who has messages', function(){
+				beforeEach(function() {
+					messageStore.add({from: 'not-yoda'});
+					returnedMessages = messageStore.fromUser(message.from);
+				});
 
-			it('should only return the correct message', function(){
-				assert.equal(returnedMessages.length, 1);
-				assert.equal(returnedMessages[0], message);
+				it('should returned an array', function(){
+					assert.equal(Array.isArray(returnedMessages), true);
+				});
+
+				it('should only return the correct message', function(){
+					assert.equal(returnedMessages.length, 1);
+					assert.equal(returnedMessages[0], message);
+				});	
 			});
+		
 		});
 
 		describe('then getting the messages to a user', function() {
-			var username = 'yoda';
-			var returnedMessages;
 			beforeEach(function(){
 				messageStore.add({to: username});
 				messageStore.add({to: username});
@@ -61,5 +75,6 @@ describe('MessageStore', function(){
 				});
 			});
 		});
+
 	});
 });

@@ -7,21 +7,15 @@ MessageStore.prototype.add = function(message) {
 };
 
 MessageStore.prototype.fromUser = function(username) {
-	var toReturn = [];
-	for(var i = 0; i < this.messages.length; i++){
-		if(this.messages[i].from == username)
-			toReturn.push(this.messages[i]);
-	}
-	return toReturn;
+	return this.messages.filter(function(message){
+		return message.from === username;
+	});
 };
 
 MessageStore.prototype.toUser = function(username) {
-	var toReturn = [];
-	this.messages.forEach(function(message){
-		if(message.to == username) 
-			toReturn.push(message);
+	return this.messages.filter(function(message) {
+		return message.to === username;
 	});
-	return toReturn;
 };
 
 module.exports = MessageStore;
