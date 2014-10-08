@@ -9,10 +9,7 @@ module.exports = function(messageStore){
 			var username = req.user.username;
 			res.render('index', {
 				username: username,
-				messages: {
-					to: messageStore.toUser(username),
-					from: messageStore.fromUser(username)
-				}
+				messages:  messageStore.toUser(username).concat(messageStore.fromUser(username))
 			});
 		}
 	};

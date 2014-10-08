@@ -1,0 +1,16 @@
+<small>Welcome {{username}},</small>
+{{#if messages}}
+<h3>Tonight's plans</h3>
+<ul>
+	<li>messages go here..</li>
+</ul>
+{{else}}
+<div>
+	Looks like you've got no plans for tonight. Ask someone if they're out tonight:
+	<form method="POST" action="/message/areyouout">
+		<input type="text" name="to">
+		<input type="submit" value="Send">
+	</form>
+</div>
+{{/if}}
+

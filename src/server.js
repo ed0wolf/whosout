@@ -2,6 +2,7 @@ var express = require('express'),
     app = express(),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
+    hbs = require('hbs'),
     authentication = require('./middleware/authentication'),
     UserStore = require('./userStore'),
     MessageStore = require('./messageStore');
@@ -21,9 +22,23 @@ app.use(cookieParser());
 app.use(authentication(userStore));
 
 //Templating
+app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
-app.set('view engine', 'mustache');
-app.engine('mustache', require('hogan-middleware').__express);
+
+var blocks = {};
+hbs.registerHelper('extend', function(name, context) {
+	var block = blocks[name];
+	if (!block) {
+		block = blocks[name] = [];
+	}
+	block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+});
+hbs.registerHelper('block', function(name) {
+	var val = (blocks[name] || []).join('\n');
+	// clear the block
+	blocks[name] = [];
+	return val;
+});
 
 //Routes
 app.get('/', site.index);
