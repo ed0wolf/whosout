@@ -5,7 +5,6 @@ module.exports = function(messageStore){
 				res.redirect('/login');
 				return;
 			}
-			console.log(req.user);
 			var username = req.user.username;
 			res.render('index', {
 				username: username,
