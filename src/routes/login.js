@@ -1,6 +1,9 @@
 module.exports = function login(userStore){
+	if(!userStore)
+		throw new Error('requires userStore parameter');
+
 	return {
-		index: function(req, res){
+		index: function(req, res) {
 			res.render('login', {});
 		},
 		login: function(req, res) {
