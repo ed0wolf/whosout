@@ -7,7 +7,7 @@ describe('MessageStore', function(){
 	describe('when creating', function(){
 		messageStore = new MessageStore();
 
-		it('should se the messages to an empty array', function() {
+		it('should set the messages to an array with null as the only element', function() {
 			assert.equal(Array.isArray(messageStore.messages), true);
 			assert.equal(messageStore.messages.length, 0);
 		});

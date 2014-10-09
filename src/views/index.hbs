@@ -12,7 +12,17 @@
 <hr>
 {{#each messages}}
 	<ul>
-		<li>{{this.to}} hasn't responded to your '{{this.body}}' yet.</li>
+		<li>
+			{{#if sentByMe}} 
+				SENT:  {{this.to}} hasn't responded to your '{{this.body}}' yet.
+			{{else}}
+			RECIEVED: {{this.from}} wants to know '{{this.body}}' tonight. 
+			<form method="POST" action="/message/reply/{{this.id}}">
+				<input type="submit" name="hasAccepted" value="No">
+				<input type="submit" name="hasAccepted" value="Yes">
+			</form>
+			{{/if}}
+		</li>
 	</ul>
 {{/each}}
 
