@@ -76,5 +76,29 @@ describe('MessageStore', function(){
 			});
 		});
 
+		describe('then getting message by Id', function() {
+			var returnedMessage;
+			describe('that does not exist', function(){
+				beforeEach(function() {
+					returnedMessage = messageStore.getId(9999);
+				});
+
+				it('should return null', function() {
+					assert.equal(returnedMessage, null);
+				});
+			});
+
+			describe('the does exist', function() {
+				var message = {something: true};
+				beforeEach(function() {
+					var id = messageStore.add(message);
+					returnedMessage = messageStore.getId(id);
+				});
+
+				it('should returned the added message', function() {
+					assert.equal(returnedMessage, message);
+				});
+			});
+		});
 	});
 });
