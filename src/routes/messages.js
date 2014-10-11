@@ -24,13 +24,18 @@ module.exports = function(messageStore) {
 				res.status(401).end();
 				return;
 			}
-			console.log(req.params);
-			if(!req.params.originalMessageId) {
+			if(!req.params.toMessageId || !body.to || body.hasAccepted == null) {
 				res.status(400).end();
 				return
 			}
+			var originalMessage = messageStore.getId(req.params.toMessageId);
+			if(! originalMessage) {
+				res.status(404).end();
+				return;
+			}
+
 			var reply = new Message(req.user.username, body.to, body.hasAccepted, req.params.originalMessageId);
-			var messageIndex = messageStore.add(reply);
+			messageStore.add(reply);
 			res.redirect('/');
 		}
 	};

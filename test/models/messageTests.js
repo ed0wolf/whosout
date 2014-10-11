@@ -12,7 +12,7 @@ describe('Message', function(){
 			});
 		});
 		describe('with valid parameters', function(){
-			var from = 'jblogs', to = 'wsmith', body = 'you out?';
+			var from = 'jblogs', to = 'wsmith', body = false;
 			beforeEach(function() {
 				message = new Message(from, to, body);
 			});
