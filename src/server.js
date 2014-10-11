@@ -16,6 +16,7 @@ var site = require('./routes/site')(messageStore),
     login = require('./routes/login')(userStore);
 
 //Middleware
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());

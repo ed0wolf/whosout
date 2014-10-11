@@ -5,7 +5,12 @@
 	<div>
 		Looks like you have no plans for tonight. Make some:
 		<form method="POST" action="/message/areyouout">
-			Ask if <input type="text" name="to"> is out? <input type="submit" value="Send">
+			Ask if <select class="user-selector" name="to">
+				{{#each users}}
+					<option value="{{this}}">{{this}}</option>
+				{{/each}}
+			</select> is out?
+			<input type="submit" value="Send">
 		</form>
 	</div>
 {{/if}}
@@ -25,4 +30,12 @@
 		</li>
 	</ul>
 {{/each}}
+
+{{#extend "scripts"}}
+<script>
+$(function() {
+	$('.user-selector').chosen({width: "20em"});
+});
+</script>
+{{/extend}}
 

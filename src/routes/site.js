@@ -15,7 +15,8 @@ module.exports = function(messageStore){
 			var username = req.user.username;
 			res.render('index', {
 				username: username,
-				messages: getMessages(username)
+				messages: getMessages(username),
+				users: ['', 'bill', 'tim', 'bob']
 			});
 		}
 	};

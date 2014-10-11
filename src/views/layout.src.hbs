@@ -1,19 +1,23 @@
 <!doctype html>
-
 	<head>
 		<title>{{title}}</title>
 		
 		<!-- build:css /css/site.css -->
 		<link href="/bower_components/chosen/chosen.css" rel="stylesheet">
 		<!-- endbuild -->
+		{{{block "stylesheets"}}}
+		
 	</head>
 	<body>
+
 		{{{body}}}
 
 		<!-- build:js /js/site.js -->
-		<script type="text/javascript" src="/bower_components/chosen/chosen.jquery.js"></script>
 		<script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-		<!-- -->	
+		<script type="text/javascript" src="/bower_components/chosen/chosen.jquery.js"></script>
+		<!-- endbuild -->	
+		
+		{{{block "scripts"}}}
 	</body>
 </html>
 
