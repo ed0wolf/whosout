@@ -1,3 +1,3 @@
-module.exports.monitor = function(req, res){
+module.exports = function(req, res){
 	res.status(201).end();
 };

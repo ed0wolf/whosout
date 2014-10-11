@@ -30,7 +30,7 @@ app.get('/', site.index);
 app.get('/login', login.index);
 app.post('/login', login.login);
 
-app.get('/monitor', monitor.monitor);
+app.get('/monitor', monitor);
 
 app.post('/message/areyouout', messages.areYouOut);
 app.post('/message/reply/:orignalMessageId', messages.reply);
