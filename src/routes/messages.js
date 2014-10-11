@@ -1,6 +1,9 @@
 var Message = require('../models/message');
 
 module.exports = function(messageStore) {
+	if(!messageStore)
+		throw new Error('requires messageStore parameters');
+
 	return {
 		areYouOut: function(req, res) {
 			var body = req.body;
