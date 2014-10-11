@@ -1,0 +1,22 @@
+{
+  "name": "WhosOut",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ed0wolf/whosout",
+  "authors": [
+    "Edward O'Reilly <ed0wolf@gmail.com>"
+  ],
+  "main": "bower.json",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.11.0",
+	"chosen": "https://github.com/harvesthq/chosen/releases/download/v1.2.0/chosen_v1.2.0.zip"
+  }
+}

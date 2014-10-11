@@ -1,3 +1,7 @@
+bower_components
 node_modules
-*.sw[op]
 npm-debug.log
+
+*.sw[op]
+src/public/
+src/views/layout.hbs
