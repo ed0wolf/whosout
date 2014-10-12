@@ -1,9 +1,16 @@
 module.exports = function(messageStore){
+	if(!messageStore) throw new Error('parameters required');
+
 	var getMessages = function(username) {
-		return messageStore.toUser(username).concat(messageStore.fromUser(username)).map(function(message) {
-			message.sentByMe = message.from === username;
+		var messagesFromUser = messageStore.fromUser(username).map(function(message) { 
+			message.sentByMe = true;
+			return message; 
+		});
+		var messagesToUser = messageStore.toUser(username).map(function(message) { 
+			message.sentByMe = false; 
 			return message;
 		});
+		return messagesToUser.concat(messagesFromUser);
 	};
 
 	return {
