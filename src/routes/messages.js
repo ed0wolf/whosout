@@ -24,7 +24,7 @@ module.exports = function(messageStore) {
 				res.status(401).end();
 				return;
 			}
-			if(!req.params.toMessageId || !body.to || body.hasAccepted == null) {
+			if(req.params.toMessageId == null || body.hasAccepted == null) {
 				res.status(400).end();
 				return
 			}
@@ -34,7 +34,7 @@ module.exports = function(messageStore) {
 				return;
 			}
 
-			var reply = new Message(req.user.username, body.to, body.hasAccepted, req.params.originalMessageId);
+			var reply = new Message(req.user.username, originalMessage.from, body.hasAccepted, req.params.originalMessageId);
 			messageStore.add(reply);
 			res.redirect('/');
 		}

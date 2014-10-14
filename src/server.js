@@ -34,7 +34,7 @@ app.post('/login', login.login);
 app.get('/monitor', monitor);
 
 app.post('/message/areyouout', messages.areYouOut);
-app.post('/message/reply/:orignalMessageId', messages.reply);
+app.post('/message/reply/:toMessageId', messages.reply);
 
 //Start Server
 var server = app.listen(3000, function(){ 

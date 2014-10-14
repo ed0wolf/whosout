@@ -114,7 +114,7 @@ describe('messages routes', function() {
 				beforeEach(function() {
 					req = { 
 						user: { username: username }, 
-						body: { to: 'hamilton', hasAccepted: false },
+						body: { hasAccepted: false },
 						params: { toMessageId: 1234 }
 					};
 				});
@@ -122,21 +122,6 @@ describe('messages routes', function() {
 				describe('but no toMessageId in the requset params', function() {
 					beforeEach(function() {
 						req.params.toMessageId = null;
-						messages.reply(req, res);
-					});
-
-					it('should set the status code to 400', function() {
-						assert(res.status.calledWith(400));
-					});
-
-					it('should call end', function() {
-						assert(end.called);
-					});
-				});
-
-				describe('but with no `to` in the body', function() {
-					beforeEach(function() {
-						req.body.to = null;
 						messages.reply(req, res);
 					});
 
@@ -164,7 +149,7 @@ describe('messages routes', function() {
 					});
 				});
 
-				describe('but the toMessageId is not known', function() {
+				describe('with a fully populated message including originalMessageId', function() {
 					describe('that does not exist', function() {
 						beforeEach(function() {
 							messageStore.getId = sinon.stub().returns(null);
@@ -200,7 +185,7 @@ describe('messages routes', function() {
 						it('should add the expected message to the messageStore', function() {
 							assert(messageStore.add.calledWithMatch(function(message){
 								return message.from === req.user.username 
-									&& message.to == req.body.to 
+									&& message.to == originalMessage.from
 									&& message.body == req.body.hasAccepted;
 							}));
 						});
